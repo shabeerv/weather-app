@@ -8,7 +8,6 @@ function LocationForm({onFormSubmit}) {
     const onChangeHandler = (event) => {
         setLocation(event.target.value)
     }
-sdfasfd
     const getDeviceLocationHandler = async() => {
       const weatherByCurrentLocation = await getWeatherByUserLocation();
       onFormSubmit(weatherByCurrentLocation)
