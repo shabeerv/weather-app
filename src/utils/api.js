@@ -3,7 +3,6 @@ import axios from "axios";
 const apiKey = "7f5e8d417a1d0e04f20ce63a795da51e";
 const baseUrl = `https://api.openweathermap.org/data/2.5/weather?units=metric&appid=${apiKey}`;
 
-// get device location by current user location weather
 const getDeviceLocation = async () => {
   if (navigator.geolocation) {
     return new Promise((resolve, reject) => 
@@ -14,21 +13,29 @@ const getDeviceLocation = async () => {
   }
 };
 
-
-
-
-
-//get user serched location weather
 export const getWeatherByCity = async (city) => {
+  try{
   const res = await fetchWeather({ q: city });
   return res;
+} catch (error) {
+  console.log(error,"getWeatherByCity")
+  return {
+    error:error.response.data.message
+  }
+}
 };
 
-//get weather by current user location
 export const getWeatherByUserLocation = async () => {
+ try {
   const query = await getDeviceLocation();
   const res = await fetchWeather({ lat: query.coords.latitude, lon: query.coords.longitude });
   return res;
+
+ } catch (error) {
+  return {
+    error
+  }
+ }
 };
 
 const fetchWeather = async (query) => {

@@ -1,71 +1,71 @@
-import React from 'react'
-import clear from '../icons/clear.svg'
-import storm from '../icons/storm.svg'
-import snow from '../icons/snow.svg'
-import haze from '../icons/haze.svg'
-import cloud from '../icons/cloud.svg'
-import rain from '../icons/rain.svg'
+import React from "react";
+import clear from "../icons/clear.svg";
+import storm from "../icons/storm.svg";
+import snow from "../icons/snow.svg";
+import haze from "../icons/haze.svg";
+import cloud from "../icons/cloud.svg";
+import rain from "../icons/rain.svg";
 
-function WeatherList({data}) {
-
-
+function WeatherList({ data }) {
   const city = data.name;
   const country = data.sys.country;
-  const {description, id} = data.weather[0];
-  const {temp, feels_like, humidity} = data.main;
+  const { description, id } = data.weather[0];
+  const { temp, feels_like, humidity } = data.main;
+  let logo;
 
-  if(id == 800){
-     var logo = clear;
-  }else if(id >= 200 && id <= 232){
-      var logo = storm;  
-  }else if(id >= 600 && id <= 622){
-      var logo = snow;
-  }else if(id >= 701 && id <= 781){
-      var logo = haze;
-  }else if(id >= 801 && id <= 804){
-      var logo = cloud;
-  }else if((id >= 500 && id <= 531) || (id >= 300 && id <= 321)){
-      var logo = rain;
+  if (id === 800) {
+    logo = clear;
+  } else if (id >= 200 && id <= 232) {
+    logo = storm;
+  } else if (id >= 600 && id <= 622) {
+    logo = snow;
+  } else if (id >= 701 && id <= 781) {
+    logo = haze;
+  } else if (id >= 801 && id <= 804) {
+    logo = cloud;
+  } else if ((id >= 500 && id <= 531) || (id >= 300 && id <= 321)) {
+    logo = rain;
   }
 
-
   return (
-        <>
-        {data?<section className="weather-part">
-         <img src={logo} alt="Weather Icon"/>
+    <>
+      {data ? (
+        <section className="weather-part">
+          <img src={logo} alt="Weather Icon" />
           <div className="temp">
             <span className="numb">{Math.floor(temp)}</span>
             <span className="deg">°</span>C
           </div>
           <div className="weather">{description}</div>
           <div className="location">
-            <i className='bx bx-map'></i>
-            <span>_, _</span>
+            <i className="bx bx-map"></i>
+            <span>{city}, {country}</span>
           </div>
           <div className="bottom-details">
             <div className="column feels">
-              <i className='bx bxs-thermometer'></i>
+              <i className="bx bxs-thermometer"></i>
               <div className="details">
                 <div className="temp">
-                  <span className="numb-2">_</span>
+                  <span className="numb-2">{feels_like}</span>
                   <span className="deg">°</span>C
                 </div>
                 <p>Feels like</p>
               </div>
             </div>
             <div className="column humidity">
-              <i className='bx bxs-droplet-half'></i>
+              <i className="bx bxs-droplet-half"></i>
               <div className="details">
-                <span>_</span>
+                <span>{Math.floor(humidity)}%</span>
                 <p>Humidity</p>
               </div>
             </div>
           </div>
-        </section>:<p>Loading</p>}
-        </>
-  
-    
-  )
+        </section>
+      ) : (
+        <p>Loading</p>
+      )}
+    </>
+  );
 }
 
-export default WeatherList
+export default WeatherList;
