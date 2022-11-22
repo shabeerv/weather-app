@@ -12,23 +12,24 @@ function LocationForm({ onFormSubmit }) {
 
   const getDeviceLocationHandler = async () => {
     const weatherByCurrentLocation = await getWeatherByUserLocation();
-    if(!weatherByCurrentLocation.error){
+    if (!weatherByCurrentLocation.error) {
       onFormSubmit(weatherByCurrentLocation);
     }
-    setError(weatherByCurrentLocation.error.message);
+    setError(weatherByCurrentLocation?.error?.message);
   };
 
   const handleKeyDown = async (event) => {
     if (event.key === "Enter") {
       event.preventDefault();
       const weatherByCity = await getWeatherByCity(location);
-console.log("weatherByCity",weatherByCity);
-      if(weatherByCity.response.status != 404){
+      console.log(weatherByCity.response?.status)
+      if (weatherByCity.response?.status !== 404) {
         onFormSubmit(weatherByCity);
       }
-      setError(weatherByCity.response.data.message)
+      setError(weatherByCity.response?.data?.message)
     }
   };
+
   return (
     <section className="input-part ">
       {error && <p className="info-txt error">{error}</p>}

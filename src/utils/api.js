@@ -15,14 +15,13 @@ const getDeviceLocation = async () => {
 
 export const getWeatherByCity = async (city) => {
   try{
-  const res = await fetchWeather({ q: city });
-  return res;
-} catch (error) {
-  console.log(error,"getWeatherByCity")
-  return {
-    error:error.response.data.message
+    const res = await fetchWeather({ q: city });
+    return res;
+  } catch (error) {
+      return {
+        error:error.response.data.message
+      }
   }
-}
 };
 
 export const getWeatherByUserLocation = async () => {
