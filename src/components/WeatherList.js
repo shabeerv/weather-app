@@ -7,25 +7,34 @@ import cloud from "../icons/cloud.svg";
 import rain from "../icons/rain.svg";
 
 function WeatherList({ data }) {
-  const city = data.name;
-  const country = data.sys.country;
-  const { description, id } = data.weather[0];
-  const { temp, feels_like, humidity } = data.main;
-  let logo;
+    const city = data.name;
+    const country = data.sys.country;
+    const { description, id } = data.weather[0];
+    const { temp, feels_like, humidity } = data.main;
+    let logo;
 
-  if (id === 800) {
-    logo = clear;
-  } else if (id >= 200 && id <= 232) {
-    logo = storm;
-  } else if (id >= 600 && id <= 622) {
-    logo = snow;
-  } else if (id >= 701 && id <= 781) {
-    logo = haze;
-  } else if (id >= 801 && id <= 804) {
-    logo = cloud;
-  } else if ((id >= 500 && id <= 531) || (id >= 300 && id <= 321)) {
-    logo = rain;
-  }
+    switch(true) {
+      case id === 800:
+        logo = clear
+        break
+      case id >= 200 && id <= 232:
+        logo = storm;
+        break;
+      case id >= 600 && id <= 622:
+        logo = snow;
+        break;
+      case id >= 701 && id <= 781:
+        logo = haze;
+        break;
+      case id >= 801 && id <= 804:
+        logo = cloud;
+        break;
+      case (id >= 500 && id <= 531) || (id >= 300 && id <= 321):
+        logo = rain;
+        break;
+      default:
+        console.log(id)
+     }
 
   return (
     <>
